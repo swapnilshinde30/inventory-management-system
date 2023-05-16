@@ -9,11 +9,20 @@ export const userSchema = {
   $id: 'User',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'email'],
+  required: ['_id','firstName','lastName', 'email','phone','userName','password','role'],
   properties: {
     _id: ObjectIdSchema(),
+    firstName:{type:'string'},
+    lastName:{type:'string'},
     email: { type: 'string' },
-    password: { type: 'string' }
+    phone:{type:'number'},
+    userName:{type:'string'},
+    password: { type: 'string' },
+    role:{type:'string'},
+    lastLoggedIn:{type:'object'},
+    isActive:true,
+    updatedBy:ObjectIdSchema(),
+    updatedAt:{type:'object'}
   }
 }
 export const userValidator = getValidator(userSchema, dataValidator)
@@ -29,7 +38,7 @@ export const userDataSchema = {
   $id: 'UserData',
   type: 'object',
   additionalProperties: false,
-  required: ['email'],
+  required: ['firstName','lastName', 'email','phone','userName','password','role'],
   properties: {
     ...userSchema.properties
   }
