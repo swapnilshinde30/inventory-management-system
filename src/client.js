@@ -1,11 +1,11 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/client.html
 import { feathers } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
+import { itemsClient } from './services/items/items.shared.js'
 
 import { itemclassesClient } from './services/itemclasses/itemclasses.shared.js'
 
 import { shopsClient } from './services/shops/shops.shared.js'
-
 
 import { categoriesClient } from './services/categories/categories.shared.js'
 
@@ -34,6 +34,7 @@ export const createClient = (connection, authenticationOptions = {}) => {
 
   client.configure(shopsClient)
 
+  client.configure(itemsClient)
 
   return client
 }
