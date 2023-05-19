@@ -1,13 +1,15 @@
-import Joi from "joi";
-import joiObjectid from "joi-objectid";
-const myJoiObjectId=joiObjectid(Joi);
-
-const attrs={
-    shopItem:myJoiObjectId().required(),
-    requireQuantity:{
-             amount:Joi.number().required(),
-             unit:Joi.string().required()
+import Joi from 'joi'
+import ObjectId from 'joi-objectid'
+const JoiObjectId = ObjectId(Joi);
+const attr = {
+    shopItem:JoiObjectId().required(),
+    requiredQuantity:{
+        amount:Joi.number().required(),
+        unit:Joi.string().required()
       },
-      preferedDeliveryDate:Joi.string()      
+    preferedDeliveryDate:Joi.string().required(),
+    status:Joi.string().required(),
+    cancellationReason:Joi.string().required(),
 }
-export const requisitionSchema=Joi.object(attrs)
+
+export const requisitionsSchema = Joi.object(attr)

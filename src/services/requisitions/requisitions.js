@@ -1,6 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
-
+import Validate from 'feathers-validate-joi'
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
   requisitionsDataValidator,
@@ -10,10 +10,13 @@ import {
   requisitionsExternalResolver,
   requisitionsDataResolver,
   requisitionsPatchResolver,
-  requisitionsQueryResolver
+  requisitionsQueryResolver,
+  requisitionsSchema
 } from './requisitions.schema.js'
 import { RequisitionsService, getOptions } from './requisitions.class.js'
 import { requisitionsPath, requisitionsMethods } from './requisitions.shared.js'
+import { checkShopItemId } from './hooks/checkShopItemId.js'
+import { setRequisitionNumber } from './hooks/setRequisitionNumber.js'
 
 export * from './requisitions.class.js'
 export * from './requisitions.schema.js'
@@ -44,10 +47,14 @@ export const requisitions = (app) => {
       find: [],
       get: [],
       create: [
+        Validate.form(requisitionsSchema,{abortEarly:false}),
+        checkShopItemId(),
+        setRequisitionNumber(),
         schemaHooks.validateData(requisitionsDataValidator),
         schemaHooks.resolveData(requisitionsDataResolver)
       ],
       patch: [
+        Validate.form(requisitionsSchema,{abortEarly:false}),
         schemaHooks.validateData(requisitionsPatchValidator),
         schemaHooks.resolveData(requisitionsPatchResolver)
       ],
