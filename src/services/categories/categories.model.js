@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 const attr = {
-    name:Joi.string().required()
+  name: Joi.string().required()
 }
 
-export const categoriesSchema = Joi.object(attr);
+export const categorySchema = Joi.object(attr)

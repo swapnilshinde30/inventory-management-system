@@ -10,11 +10,11 @@ import {
   categoriesExternalResolver,
   categoriesDataResolver,
   categoriesPatchResolver,
-  categoriesQueryResolver,
-  categoriesSchema
+  categoriesQueryResolver
 } from './categories.schema.js'
 import { CategoriesService, getOptions } from './categories.class.js'
 import { categoriesPath, categoriesMethods } from './categories.shared.js'
+import { categorySchema } from './categories.model.js'
 
 export * from './categories.class.js'
 export * from './categories.schema.js'
@@ -45,12 +45,13 @@ export const categories = (app) => {
       find: [],
       get: [],
       create: [
-        Validate.form(categoriesSchema,{abortEarly:false}),
+        Validate.form(categorySchema, { abortEarly: false }),
         schemaHooks.validateData(categoriesDataValidator),
         schemaHooks.resolveData(categoriesDataResolver)
       ],
+
       patch: [
-        Validate.form(categoriesSchema,{abortEarly:false}),
+        Validate.form(categorySchema, { abortEarly: false }),
         schemaHooks.validateData(categoriesPatchValidator),
         schemaHooks.resolveData(categoriesPatchResolver)
       ],

@@ -1,6 +1,10 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/client.html
 import { feathers } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
+import { sendMailClient } from './services/sendMail/sendMail.shared.js'
+
+import { sendMailClient } from './services/sendMail/sendMail.shared.js'
+
 import { requisitionsClient } from './services/requisitions/requisitions.shared.js'
 
 import { shopitemsClient } from './services/shopitems/shopitems.shared.js'
@@ -43,6 +47,10 @@ export const createClient = (connection, authenticationOptions = {}) => {
   client.configure(shopitemsClient)
 
   client.configure(requisitionsClient)
+
+  client.configure(sendMailClient)
+
+  client.configure(sendMailClient)
 
   return client
 }

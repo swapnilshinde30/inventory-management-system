@@ -9,20 +9,20 @@ export const userSchema = {
   $id: 'User',
   type: 'object',
   additionalProperties: false,
-  required: ['_id','firstName','lastName', 'email','phone','userName','password','role'],
+  required: ['_id', 'firstName', 'lastName', 'email', 'phone', 'userName', 'password', 'role'],
   properties: {
     _id: ObjectIdSchema(),
-    firstName:{type:'string'},
-    lastName:{type:'string'},
+    firstName: { type: 'string' },
+    lastName: { type: 'string' },
     email: { type: 'string' },
-    phone:{type:'number'},
-    userName:{type:'string'},
+    phone: { type: 'string' },
+    userName: { type: 'string' },
     password: { type: 'string' },
-    role:{type:'string'},
-    lastLoggedIn:{type:'object'},
-    isActive:true,
-    updatedBy:ObjectIdSchema(),
-    updatedAt:{type:'object'}
+    role: { type: 'string' },
+    lastLoggedIn: { type: 'object' },
+    isActive: { type: 'boolean', default: true },
+    updatedBy: ObjectIdSchema(),
+    updatedAt: { type: 'object' }
   }
 }
 export const userValidator = getValidator(userSchema, dataValidator)
@@ -38,7 +38,7 @@ export const userDataSchema = {
   $id: 'UserData',
   type: 'object',
   additionalProperties: false,
-  required: ['firstName','lastName', 'email','phone','userName','password','role'],
+  required: ['firstName', 'lastName', 'email', 'phone', 'userName', 'password', 'role'],
   properties: {
     ...userSchema.properties
   }
@@ -52,7 +52,7 @@ export const userDataResolver = resolve({
 export const userPatchSchema = {
   $id: 'UserPatch',
   type: 'object',
-  additionalProperties: false,
+  additionalProperties: true,
   required: [],
   properties: {
     ...userSchema.properties
@@ -75,11 +75,10 @@ export const userQuerySchema = {
 export const userQueryValidator = getValidator(userQuerySchema, queryValidator)
 export const userQueryResolver = resolve({
   // If there is a user (e.g. with authentication), they are only allowed to see their own data
-  _id: async (value, user, context) => {
-    if (context.params.user) {
-      return context.params.user._id
-    }
-
-    return value
-  }
+  // _id: async (value, user, context) => {
+  //   if (context.params.user) {
+  //     if (context.params.user.role !== 'admin') return context.params.user._id
+  //   }
+  //   return value
+  // }
 })

@@ -10,14 +10,14 @@ import {
   shopsExternalResolver,
   shopsDataResolver,
   shopsPatchResolver,
-  shopsQueryResolver,
-  shopsSchema
+  shopsQueryResolver
 } from './shops.schema.js'
 import { ShopsService, getOptions } from './shops.class.js'
 import { shopsPath, shopsMethods } from './shops.shared.js'
 import { checkCategoryId } from './hooks/checkCategoryId.js'
 import { checkOwnerId } from './hooks/checkOwnerId.js'
 import { setShopId } from './hooks/setShopId.js'
+import { shopSchema } from './shops.model.js'
 
 export * from './shops.class.js'
 export * from './shops.schema.js'
@@ -45,12 +45,14 @@ export const shops = (app) => {
       find: [],
       get: [],
       create: [
-        Validate.form(shopsSchema,{abortEarly:false}),
-        checkCategoryId(),checkOwnerId(),setShopId(),
-        schemaHooks.validateData(shopsDataValidator), schemaHooks.resolveData(shopsDataResolver)],
-      patch: [
-        Validate.form(shopsSchema,{abortEarly:false}),
-        schemaHooks.validateData(shopsPatchValidator), schemaHooks.resolveData(shopsPatchResolver)],
+        Validate.form(shopSchema, { abortEarly: false }),
+        checkCategoryId(),
+        checkOwnerId(),
+        setShopId(),
+        schemaHooks.validateData(shopsDataValidator),
+        schemaHooks.resolveData(shopsDataResolver)
+      ],
+      patch: [schemaHooks.validateData(shopsPatchValidator), schemaHooks.resolveData(shopsPatchResolver)],
       remove: []
     },
     after: {

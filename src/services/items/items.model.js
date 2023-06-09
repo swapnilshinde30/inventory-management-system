@@ -1,10 +1,10 @@
 import Joi from 'joi'
-import { ObjectId } from 'joi-objectid'
-const JoiObjectId = ObjectId(Joi);
+import JoiObjectId from 'joi-objectid'
+const myJoiObjectId = JoiObjectId(Joi)
 
 const attr = {
-    name:Joi.string().required(),
-    itemClass:JoiObjectId().required(),
-    description:Joi.string.required()
+  name: Joi.string().required(),
+  itemClass: myJoiObjectId().required(),
+  description: Joi.string().required()
 }
-export const itemsSchema = Joi.object(attr);
+export const itemSchema = Joi.object(attr)

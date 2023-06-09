@@ -1,6 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
-import  Validate from 'feathers-validate-joi'
+import Validate from 'feathers-validate-joi'
 
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
@@ -11,12 +11,12 @@ import {
   itemclassesExternalResolver,
   itemclassesDataResolver,
   itemclassesPatchResolver,
-  itemclassesQueryResolver,
-  itemclassesSchema
+  itemclassesQueryResolver
 } from './itemclasses.schema.js'
 import { ItemclassesService, getOptions } from './itemclasses.class.js'
 import { itemclassesPath, itemclassesMethods } from './itemclasses.shared.js'
 import { checkCategoryId } from './hooks/checkCategoryId.js'
+import { itemclassSchema } from './itemclasses.model.js'
 
 export * from './itemclasses.class.js'
 export * from './itemclasses.schema.js'
@@ -47,13 +47,18 @@ export const itemclasses = (app) => {
       find: [],
       get: [],
       create: [
-        Validate.form(itemclassesSchema,{abortEarly:false}),
+        Validate.form(itemclassSchema, { abortEarly: false }),
         checkCategoryId(),
         schemaHooks.validateData(itemclassesDataValidator),
         schemaHooks.resolveData(itemclassesDataResolver)
       ],
+      update: [
+        Validate.form(itemclassSchema, { abortEarly: false }),
+        checkCategoryId(),
+        schemaHooks.validateData(itemclassesPatchValidator),
+        schemaHooks.resolveData(itemclassesPatchResolver)
+      ],
       patch: [
-        Validate.form(itemclassesSchema,{abortEarly:false}),
         checkCategoryId(),
         schemaHooks.validateData(itemclassesPatchValidator),
         schemaHooks.resolveData(itemclassesPatchResolver)

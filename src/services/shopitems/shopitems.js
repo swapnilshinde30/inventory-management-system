@@ -1,6 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
-import  Validate from 'feathers-validate-joi'
+import Validate from 'feathers-validate-joi'
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
   shopitemsDataValidator,
@@ -18,6 +18,8 @@ import { shopitemsPath, shopitemsMethods } from './shopitems.shared.js'
 import { checkItemId } from './hooks/checkItemId.js'
 import { checkShopId } from './hooks/checkShopId.js'
 import { setDate } from './hooks/setDate.js'
+import { addedBy } from './hooks/setAddedBy.js'
+import { incraseQuantity } from './hooks/increaseQuantiy.js'
 
 export * from './shopitems.class.js'
 export * from './shopitems.schema.js'
@@ -48,18 +50,23 @@ export const shopitems = (app) => {
       find: [],
       get: [],
       create: [
-        Validate.form(shopitemsSchema,{abortEarly:false}),
+        Validate.form(shopitemsSchema, { abortEarly: false }),
         checkItemId(),
         checkShopId(),
         setDate(),
+        addedBy(),
+        incraseQuantity(),
         schemaHooks.validateData(shopitemsDataValidator),
         schemaHooks.resolveData(shopitemsDataResolver)
       ],
       patch: [
-        Validate.form(shopitemsSchema,{abortEarly:false}),
-        checkItemId(),
-        checkShopId(),
+        // Validate.form(shopitemsSchema,{abortEarly:false}),
+        // checkItemId(),
+        // checkShopId(),
+        authenticate('jwt'),
+        addedBy(),
         setDate(),
+        incraseQuantity(),
         schemaHooks.validateData(shopitemsPatchValidator),
         schemaHooks.resolveData(shopitemsPatchResolver)
       ],

@@ -10,12 +10,12 @@ import {
   itemsExternalResolver,
   itemsDataResolver,
   itemsPatchResolver,
-  itemsQueryResolver,
-  itemsSchema
+  itemsQueryResolver
 } from './items.schema.js'
 import { ItemsService, getOptions } from './items.class.js'
 import { itemsPath, itemsMethods } from './items.shared.js'
 import { checkItemClassId } from './hooks/checkItemClassId.js'
+import { itemSchema } from './items.model.js'
 
 export * from './items.class.js'
 export * from './items.schema.js'
@@ -43,12 +43,17 @@ export const items = (app) => {
       find: [],
       get: [],
       create: [
-        Validate.form(itemsSchema,{abortEarly:false}),
+        Validate.form(itemSchema, { abortEarly: false }),
         checkItemClassId(),
-        schemaHooks.validateData(itemsDataValidator), schemaHooks.resolveData(itemsDataResolver)],
-      patch: [
-        Validate.form(itemsSchema,{abortEarly:false}),
-        schemaHooks.validateData(itemsPatchValidator), schemaHooks.resolveData(itemsPatchResolver)],
+        schemaHooks.validateData(itemsDataValidator),
+        schemaHooks.resolveData(itemsDataResolver)
+      ],
+      update: [
+        Validate.form(itemSchema, { abortEarly: false }),
+        schemaHooks.validateData(itemsPatchValidator),
+        schemaHooks.resolveData(itemsPatchResolver)
+      ],
+      patch: [schemaHooks.validateData(itemsPatchValidator), schemaHooks.resolveData(itemsPatchResolver)],
       remove: []
     },
     after: {

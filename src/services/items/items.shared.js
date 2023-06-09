@@ -1,6 +1,6 @@
 export const itemsPath = 'items'
 
-export const itemsMethods = ['find', 'get', 'create', 'patch', 'remove']
+export const itemsMethods = ['find', 'get', 'create', 'patch', 'remove', 'update']
 
 export const itemsClient = (client) => {
   const connection = client.get('connection')

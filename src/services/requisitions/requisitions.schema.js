@@ -8,20 +8,20 @@ export const requisitionsSchema = {
   $id: 'Requisitions',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'shopItem','requiredQuantity','preferedDeliveryDate'],
+  required: ['_id', 'shopItem', 'requiredQuantity', 'preferedDeliveryDate'],
   properties: {
     _id: ObjectIdSchema(),
-    shopItem:ObjectIdSchema(),
-    requiredQuantity:{
-      type:'object',
-      properties:{
-           amount:{type:'number'},
-           unit:{type:'string'}
+    shopItem: ObjectIdSchema(),
+    requiredQuantity: {
+      type: 'object',
+      properties: {
+        amount: { type: 'number' },
+        unit: { type: 'string' }
       }
     },
-    preferedDeliveryDate:{type:'string'},
-    requisitionNumber:{type:'string'},
-    status: { type: 'string' },
+    preferedDeliveryDate: { type: 'string' },
+    requisitionNumber: { type: 'string' },
+    status: { type: 'string', default: 'created' },
     cancellationReason: { type: 'string' }
   }
 }
@@ -35,7 +35,7 @@ export const requisitionsDataSchema = {
   $id: 'RequisitionsData',
   type: 'object',
   additionalProperties: false,
-  required: ['shopItem','requiredQuantity','preferedDeliveryDate'],
+  required: ['shopItem', 'requiredQuantity', 'preferedDeliveryDate'],
   properties: {
     ...requisitionsSchema.properties
   }
