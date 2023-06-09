@@ -15,7 +15,6 @@ export const changeStatus = () => {
       const item = await shopItemService.patch(shopItem._id, {
         availableQuantity
       })
-      console.log(availableQuantity.amount)
     }
 
     if (context.data.status === 'cancelled') {
