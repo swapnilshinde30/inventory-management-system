@@ -37,7 +37,7 @@ export const shopitems = (app) => {
   app.service(shopitemsPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
+        //   authenticate('jwt'),
         schemaHooks.resolveExternal(shopitemsExternalResolver),
         schemaHooks.resolveResult(shopitemsResolver)
       ]

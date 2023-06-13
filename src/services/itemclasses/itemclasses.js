@@ -34,7 +34,7 @@ export const itemclasses = (app) => {
   app.service(itemclassesPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
+        //   authenticate('jwt'),
         schemaHooks.resolveExternal(itemclassesExternalResolver),
         schemaHooks.resolveResult(itemclassesResolver)
       ]

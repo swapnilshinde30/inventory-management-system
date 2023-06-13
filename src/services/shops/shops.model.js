@@ -11,7 +11,7 @@ const attr = {
   state: Joi.string().required(),
   zipcode: Joi.string().required(),
   category: myJoiObjectId().required(),
-  owner: myJoiObjectId().required(),
+  // owner: myJoiObjectId().required(),
   contactPerson: {
     name: Joi.string().required(),
     phone: Joi.string().required()
