@@ -63,7 +63,7 @@ export const shopitems = (app) => {
         // Validate.form(shopitemsSchema,{abortEarly:false}),
         // checkItemId(),
         // checkShopId(),
-        authenticate('jwt'),
+        // authenticate('jwt'),
         addedBy(),
         setDate(),
         incraseQuantity(),

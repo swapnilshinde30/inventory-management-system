@@ -37,7 +37,7 @@ export const requisitions = (app) => {
   app.service(requisitionsPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
+        // authenticate('jwt'),
         schemaHooks.resolveExternal(requisitionsExternalResolver),
         schemaHooks.resolveResult(requisitionsResolver)
       ]
