@@ -7,7 +7,8 @@ const attr = {
     amount: Joi.number().required(),
     unit: Joi.string().required()
   },
-  preferedDeliveryDate: Joi.string().required()
+  preferedDeliveryDate: Joi.string().required(),
+  itemName: Joi.string().required()
 }
 
 export const requisitionsSchema = Joi.object(attr)

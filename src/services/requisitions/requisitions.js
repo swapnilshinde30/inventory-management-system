@@ -53,7 +53,7 @@ export const requisitions = (app) => {
         Validate.form(requisitionsSchema, { abortEarly: false }),
         checkShopItemId(),
         checkStock(),
-        setRequisitionNumber(),
+        // setRequisitionNumber(),
         schemaHooks.validateData(requisitionsDataValidator),
         schemaHooks.resolveData(requisitionsDataResolver)
       ],
