@@ -3,7 +3,8 @@ import sendEmailForQuantity from './sendEmailForQuantity.js'
 export const changeStatus = () => {
   return async (context) => {
     //console.log(context.params.id)
-    if (context.data.status === 'accepted') {
+    if (context.data.status === 'dispatched') {
+      console.log('in dispatched')
       const shopItemId = context.data.shopItem
       const shopItemService = context.app.service('shopitems')
       const shopItem = await shopItemService.get(shopItemId)
