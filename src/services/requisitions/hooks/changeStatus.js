@@ -18,9 +18,9 @@ export const changeStatus = () => {
       })
     }
 
-    if (context.data.status === 'cancelled') {
-      if (!context.data.cancellationReason) throw new Error('Cancellation Reason is not given!')
-    }
+    // if (context.data.status === 'cancelled') {
+    //   if (!context.data.cancellationReason) throw new Error('Cancellation Reason is not given!')
+    // }
     return context
   }
 }

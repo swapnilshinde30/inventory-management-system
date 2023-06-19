@@ -6,8 +6,8 @@ export const checkOwnerId = () => {
     // const user = await userService.get(userId)
     // if (!user) throw new Error('user not found')
     //use this only
-    //context.data.owner = context.params.user._id
-    context.data.owner = '6482c2a69e19849081d26aef'
+    // context.data.owner = context.params.user._id
+    //context.data.owner = '6482c2a69e19849081d26aef'
     return context
   }
 }
