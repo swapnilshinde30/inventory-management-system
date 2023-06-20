@@ -32,11 +32,7 @@ export const items = (app) => {
   // Initialize hooks
   app.service(itemsPath).hooks({
     around: {
-      all: [
-        // authenticate('jwt'),
-        schemaHooks.resolveExternal(itemsExternalResolver),
-        schemaHooks.resolveResult(itemsResolver)
-      ]
+      all: [schemaHooks.resolveExternal(itemsExternalResolver), schemaHooks.resolveResult(itemsResolver)]
     },
     before: {
       all: [schemaHooks.validateQuery(itemsQueryValidator), schemaHooks.resolveQuery(itemsQueryResolver)],
@@ -49,12 +45,17 @@ export const items = (app) => {
         schemaHooks.resolveData(itemsDataResolver)
       ],
       update: [
+        authenticate('jwt'),
         Validate.form(itemSchema, { abortEarly: false }),
         schemaHooks.validateData(itemsPatchValidator),
         schemaHooks.resolveData(itemsPatchResolver)
       ],
-      patch: [schemaHooks.validateData(itemsPatchValidator), schemaHooks.resolveData(itemsPatchResolver)],
-      remove: []
+      patch: [
+        authenticate('jwt'),
+        schemaHooks.validateData(itemsPatchValidator),
+        schemaHooks.resolveData(itemsPatchResolver)
+      ],
+      remove: [authenticate('jwt')]
     },
     after: {
       all: []

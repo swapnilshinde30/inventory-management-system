@@ -7,10 +7,10 @@ export const forgotPasswordSchema = {
   $id: 'ForgotPassword',
   type: 'object',
   additionalProperties: false,
-  required: ['id', 'email', 'newPassword', 'confirmPassword'],
+  required: ['id', 'userName', 'newPassword', 'confirmPassword'],
   properties: {
     id: { type: 'number' },
-    email: { type: 'string' },
+    userName: { type: 'string' },
     newPassword: { type: 'string' },
     confirmPassword: { type: 'string' }
   }
@@ -25,7 +25,7 @@ export const forgotPasswordDataSchema = {
   $id: 'ForgotPasswordData',
   type: 'object',
   additionalProperties: false,
-  required: ['email', 'newPassord', 'confirmPassword'],
+  required: ['userName', 'newPassword', 'confirmPassword'],
   properties: {
     ...forgotPasswordSchema.properties
   }

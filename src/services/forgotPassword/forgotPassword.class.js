@@ -3,49 +3,22 @@ export class ForgotPasswordService {
   constructor(options) {
     this.options = options
   }
-
-  async find(_params) {
-    return []
+  setup(app) {
+    this.app = app
   }
-
-  async get(id, _params) {
-    return {
-      id: 0,
-      text: `A new message with ID: ${id}!`
+  async create(data) {
+    const result = {}
+    let userService = this.app.service(`users`)
+    const user = await userService.get(null, { query: { userName: data.userName } })
+    console.log(user)
+    if (data.newPassword === data.confirmPassword) {
+      const User = await userService.patch(user._id, { password: data.newPassword })
+      console.log('Password Changed')
+      result.msg = 'Password changed successfully'
+    } else {
+      result.msg = 'Password does not match'
     }
-  }
-  async create(data, params) {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map((current) => this.create(current, params)))
-    }
-
-    return {
-      id: 0,
-      ...data
-    }
-  }
-
-  // This method has to be added to the 'methods' option to make it available to clients
-  async update(id, data, _params) {
-    return {
-      id: 0,
-      ...data
-    }
-  }
-
-  async patch(id, data, _params) {
-    return {
-      id: 0,
-      text: `Fallback for ${id}`,
-      ...data
-    }
-  }
-
-  async remove(id, _params) {
-    return {
-      id: 0,
-      text: 'removed'
-    }
+    return result
   }
 }
 

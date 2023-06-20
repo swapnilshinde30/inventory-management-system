@@ -63,6 +63,7 @@ export const shopsDataSchema = {
     'state',
     'zipcode',
     'category',
+    'owner',
     'contactPerson'
   ],
   properties: {

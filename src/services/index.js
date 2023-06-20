@@ -1,3 +1,5 @@
+import { otpAuthentication } from './otp-authentication/otp-authentication.js'
+
 import { forgotPassword } from './forgotPassword/forgotPassword.js'
 
 import { requisitions } from './requisitions/requisitions.js'
@@ -15,6 +17,8 @@ import { categories } from './categories/categories.js'
 import { user } from './users/users.js'
 
 export const services = (app) => {
+  app.configure(otpAuthentication)
+
   app.configure(forgotPassword)
 
   app.configure(requisitions)

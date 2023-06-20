@@ -37,7 +37,7 @@ export const shopitems = (app) => {
   app.service(shopitemsPath).hooks({
     around: {
       all: [
-        //   authenticate('jwt'),
+        authenticate('jwt'),
         schemaHooks.resolveExternal(shopitemsExternalResolver),
         schemaHooks.resolveResult(shopitemsResolver)
       ]
@@ -53,7 +53,7 @@ export const shopitems = (app) => {
         Validate.form(shopitemsSchema, { abortEarly: false }),
         checkItemId(),
         checkShopId(),
-        setDate(),
+       // setDate(),
         addedBy(),
         incraseQuantity(),
         schemaHooks.validateData(shopitemsDataValidator),
@@ -63,9 +63,8 @@ export const shopitems = (app) => {
         // Validate.form(shopitemsSchema,{abortEarly:false}),
         // checkItemId(),
         // checkShopId(),
-        // authenticate('jwt'),
         addedBy(),
-        setDate(),
+       // setDate(),
         incraseQuantity(),
         schemaHooks.validateData(shopitemsPatchValidator),
         schemaHooks.resolveData(shopitemsPatchResolver)

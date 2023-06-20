@@ -39,17 +39,10 @@ export const forgotPassword = (app) => {
         schemaHooks.validateQuery(forgotPasswordQueryValidator),
         schemaHooks.resolveQuery(forgotPasswordQueryResolver)
       ],
-      find: [],
-      get: [],
       create: [
         schemaHooks.validateData(forgotPasswordDataValidator),
         schemaHooks.resolveData(forgotPasswordDataResolver)
       ],
-      patch: [
-        schemaHooks.validateData(forgotPasswordPatchValidator),
-        schemaHooks.resolveData(forgotPasswordPatchResolver)
-      ],
-      remove: []
     },
     after: {
       all: []
